@@ -79,9 +79,9 @@ public class ShodanUtils {
                 shodanItem.organization = listItem.org;
                 shodanItem.ip = listItem.ip;
                 shodanItem.port = listItem.port;
-                shodanItem.product = listItem.product;
+                shodanItem.product = listItem.product.toLowerCase();
                 shodanItem.transport = listItem.transport;
-                shodanItem.title = listItem.http.title;
+                shodanItem.title = listItem.http.title.toUpperCase();
                 shodanItem.countryCode = listItem.location.country_code;
                 shodanItem.city = listItem.location.city;
                 shodanItem.longitude = listItem.location.longitude;
