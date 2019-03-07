@@ -1,7 +1,9 @@
 package com.example.shodan.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -20,11 +22,13 @@ import com.example.shodan.utils.ShodanUtils;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>,ShodanAdapter.OnShodanItemClickListener {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>,ShodanAdapter.OnShodanItemClickListener,
+        SharedPreferences.OnSharedPreferenceChangeListener{
     private static final String SEARCH_URL_KEY = ShodanUtils.buildShodanURL("Seattle"); //baseline prior to user entering location preference
     private static final int SHODAN_SEARCH_LOADER_ID = 0;
     private ShodanAdapter mAdapter;
     private RecyclerView mRecyclerView;
+    private SharedPreferences.OnSharedPreferenceChangeListener prefListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +41,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setHasFixedSize(true);
         getSupportLoaderManager().initLoader(SHODAN_SEARCH_LOADER_ID, null, this);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        prefListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+                loadShodanData(prefs);
+            }
+        };
+        prefs.registerOnSharedPreferenceChangeListener(prefListener);
     }
 
     @Override
@@ -55,7 +66,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_preferences) {
-            return true;
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -88,5 +100,20 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         Intent intent = new Intent(this, ShodanDetailsActivity.class);
         intent.putExtra(ShodanUtils.EXTRA_SHODAN_ITEM, shodanItem);
         startActivity(intent);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        loadShodanData(sharedPreferences);
+    }
+
+    private void loadShodanData(SharedPreferences preferences) {
+        String location = preferences.getString("pref_location","");
+        String url = ShodanUtils.buildShodanURL(location);
+        Bundle loaderArgs = new Bundle();
+        loaderArgs.putString(SEARCH_URL_KEY, url);
+        getSupportLoaderManager()
+                .restartLoader(SHODAN_SEARCH_LOADER_ID, loaderArgs, this);
+
     }
 }
