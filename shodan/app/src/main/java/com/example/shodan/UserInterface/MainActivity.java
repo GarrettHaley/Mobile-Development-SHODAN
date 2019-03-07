@@ -75,9 +75,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         if(shodanJSON != null){
             ArrayList<ShodanItem> shodanItems = ShodanUtils.parseShodanJSON(shodanJSON);
             mAdapter.updateShodanItems(shodanItems);
-        /*    for (ShodanItem shodanItem : shodanItems)
-                if(shodanItem.title != null)
-                    Log.d("RESULTS: ", shodanItem.title);*/
         }
     }
 
