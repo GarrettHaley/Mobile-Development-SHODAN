@@ -1,5 +1,6 @@
 package com.example.shodan.UserInterface;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,7 +21,7 @@ import com.example.shodan.utils.ShodanUtils;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>,ShodanAdapter.OnShodanItemClickListener {
     private static final String SEARCH_URL_KEY = ShodanUtils.buildShodanURL("Seattle"); //baseline prior to user entering location preference
     private static final int SHODAN_SEARCH_LOADER_ID = 0;
     private ShodanAdapter mAdapter;
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mRecyclerView = (RecyclerView)findViewById(R.id.shodanItem_recycler_view);
-        mAdapter = new ShodanAdapter();
+        mAdapter = new ShodanAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setHasFixedSize(true);
@@ -81,5 +82,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoaderReset(@NonNull Loader<String> loader) {
 
+    }
+
+    @Override
+    public void onShodanItemClick(ShodanItem shodanItem) {
+        Intent intent = new Intent(this, ShodanDetails.class);
+        intent.putExtra(ShodanUtils.EXTRA_SHODAN_ITEM, shodanItem);
+        startActivity(intent);
     }
 }

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.TimeZone;
 
 public class ShodanUtils {
+    public static final String EXTRA_SHODAN_ITEM = "com.example.android.shodan.ShodanItem";
     private final static String SHODAN_BASE_URL = "https://api.shodan.io/shodan/host/search";
     private final static String SHODAN_APPID = "hum6wgv0lrzu18g79j8Ot1uus9Lohy4i";
 

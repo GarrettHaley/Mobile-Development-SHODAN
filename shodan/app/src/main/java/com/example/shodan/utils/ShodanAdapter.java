@@ -22,6 +22,10 @@ public class ShodanAdapter extends RecyclerView.Adapter<ShodanAdapter.ShodanItem
     private ArrayList<ShodanItem> shodanItems;
     private OnShodanItemClickListener mShodanItemClickListener;
 
+    public ShodanAdapter(OnShodanItemClickListener clickListener) {
+        mShodanItemClickListener = clickListener;
+    }
+
     public interface OnShodanItemClickListener {
         void onShodanItemClick(ShodanItem shodanItem);
     }
@@ -78,6 +82,8 @@ public class ShodanAdapter extends RecyclerView.Adapter<ShodanAdapter.ShodanItem
         }
         @Override
         public void onClick(View v) {
+            ShodanItem shodanItem = shodanItems.get(getAdapterPosition());
+            mShodanItemClickListener.onShodanItemClick(shodanItem);
         }
     }
 }

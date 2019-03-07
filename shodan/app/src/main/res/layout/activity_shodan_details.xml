@@ -1,0 +1,101 @@
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/background2">
+
+    <LinearLayout android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <TextView
+            android:id="@+id/detail_item_org"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:layout_marginLeft="12dp"
+            android:textSize="24sp"
+            android:textColor="#fff"/>
+
+    <TextView
+        android:id="@+id/detail_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:layout_marginLeft="12dp"
+        android:textSize="18sp"
+        android:textColor="#fff"/>
+
+<TextView
+    android:id="@+id/detail_item_lat"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="4dp"
+    android:layout_marginLeft="12dp"
+    android:textSize="18sp"
+    android:textColor="#fff"/>
+
+    <TextView
+        android:id="@+id/detail_item_long"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:layout_marginLeft="12dp"
+        android:textSize="18sp"
+        android:textColor="#fff"/>
+
+        <TextView
+            android:id="@+id/detail_item_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:layout_marginLeft="12dp"
+            android:textSize="18sp"
+            android:textColor="#fff"/>
+
+        <TextView
+            android:id="@+id/detail_item_country_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:layout_marginLeft="12dp"
+            android:textSize="18sp"
+            android:textColor="#fff"/>
+
+<TextView
+    android:id="@+id/detail_item_ip_port"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="4dp"
+    android:layout_marginLeft="12dp"
+    android:textSize="18sp"
+    android:textColor="#fff"/>
+        <TextView
+            android:id="@+id/detail_item_transport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:layout_marginLeft="12dp"
+            android:textSize="18sp"
+            android:textColor="#fff"/>
+
+<TextView
+    android:id="@+id/detail_item_product"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="4dp"
+    android:layout_marginLeft="12dp"
+    android:textSize="18sp"
+    android:textColor="#fff"/>
+
+<TextView
+    android:id="@+id/detail_itemTimestamp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="4dp"
+    android:layout_marginLeft="12dp"
+    android:textSize="18sp"
+    android:textColor="#fff"/>
+
+</LinearLayout>
+</ScrollView>

@@ -1,7 +1,10 @@
 package com.example.shodan;
+
+import java.io.Serializable;
+
 /* Default class used to represent each location from the shodan api call
  */
-public class ShodanItem {
+public class ShodanItem implements Serializable {
     public Long ip;
     public Integer port;
     public String transport;
