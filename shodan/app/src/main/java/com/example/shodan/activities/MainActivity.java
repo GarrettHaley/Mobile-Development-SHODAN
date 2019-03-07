@@ -1,4 +1,4 @@
-package com.example.shodan.UserInterface;
+package com.example.shodan.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,14 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import com.example.shodan.R;
 import com.example.shodan.ShodanItem;
-import com.example.shodan.AsyncTasks.ShodanSearchLoader;
+import com.example.shodan.asyncTasks.ShodanSearchLoader;
 import com.example.shodan.utils.ShodanAdapter;
 import com.example.shodan.utils.ShodanUtils;
 import java.util.ArrayList;
@@ -86,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onShodanItemClick(ShodanItem shodanItem) {
-        Intent intent = new Intent(this, ShodanDetails.class);
+        Intent intent = new Intent(this, ShodanDetailsActivity.class);
         intent.putExtra(ShodanUtils.EXTRA_SHODAN_ITEM, shodanItem);
         startActivity(intent);
     }

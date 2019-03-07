@@ -1,17 +1,20 @@
-package com.example.shodan.UserInterface;
+package com.example.shodan.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.shodan.R;
 import com.example.shodan.ShodanItem;
 import com.example.shodan.utils.ShodanUtils;
 
-import org.w3c.dom.Text;
+import java.text.DecimalFormat;
 
-public class ShodanDetails extends AppCompatActivity {
+public class ShodanDetailsActivity extends AppCompatActivity {
     private TextView detailOrg;
     private TextView detailTitle;
     private TextView detailLat;
@@ -24,6 +27,7 @@ public class ShodanDetails extends AppCompatActivity {
     private TextView detailProduct;
     private TextView detailItemTimestamp;
     private ShodanItem shodanItem;
+    private Button mapButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,19 +43,26 @@ public class ShodanDetails extends AppCompatActivity {
         detailTransport = (TextView) findViewById(R.id.detail_item_transport);
         detailProduct = (TextView) findViewById(R.id.detail_item_product);
         detailItemTimestamp = (TextView) findViewById(R.id.detail_itemTimestamp);
-
+        mapButton = (Button) findViewById(R.id.map);
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(ShodanUtils.EXTRA_SHODAN_ITEM)) {
             shodanItem = (ShodanItem)intent.getSerializableExtra(ShodanUtils.EXTRA_SHODAN_ITEM);
             fillInLayout(shodanItem);
+            mapButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showShodanLocation(shodanItem);
+                }
+            });
         }
     }
 
     private void fillInLayout(ShodanItem shodanItem) {
+        DecimalFormat df = new DecimalFormat("#.00000");
         detailOrg.setText(shodanItem.organization);
         detailTitle.setText(shodanItem.title);
-        detailLat.setText("Latitude: " + shodanItem.latitude.toString());
-        detailLong.setText("Longitude: " + shodanItem.longitude.toString());
+        detailLat.setText("Latitude: " + df.format(shodanItem.latitude));
+        detailLong.setText("Longitude: " + df.format(shodanItem.longitude));
         detailCity.setText(shodanItem.city);
         detailCountryCode.setText(shodanItem.countryCode);
         detail_IP.setText("IP: " + shodanItem.ip);
@@ -59,5 +70,12 @@ public class ShodanDetails extends AppCompatActivity {
         detailTransport.setText("Transport: " + shodanItem.transport);
         detailProduct.setText("Product: " + shodanItem.product);
         detailItemTimestamp.setText(shodanItem.timestamp);
+    }
+    public void showShodanLocation(ShodanItem shodanItem) {
+        Uri geoUri = Uri.parse("geo:" + shodanItem.latitude + "," + shodanItem.longitude).buildUpon().build();
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, geoUri);
+        if (mapIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(mapIntent);
+        }
     }
 }

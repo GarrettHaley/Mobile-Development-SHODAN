@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">SHODAN</string>
 
-    <string name="action_preferences">Preferences</string>
+    <string name="action_preferences">Search</string>
 </resources>

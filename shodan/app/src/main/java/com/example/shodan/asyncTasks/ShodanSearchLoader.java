@@ -1,4 +1,4 @@
-package com.example.shodan.AsyncTasks;
+package com.example.shodan.asyncTasks;
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
