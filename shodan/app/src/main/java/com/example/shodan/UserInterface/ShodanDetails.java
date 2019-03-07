@@ -18,7 +18,8 @@ public class ShodanDetails extends AppCompatActivity {
     private TextView detailLong;
     private TextView detailCity;
     private TextView detailCountryCode;
-    private TextView detailIP_Port;
+    private TextView detail_IP;
+    private TextView detail_port;
     private TextView detailTransport;
     private TextView detailProduct;
     private TextView detailItemTimestamp;
@@ -33,7 +34,8 @@ public class ShodanDetails extends AppCompatActivity {
         detailLong = (TextView) findViewById(R.id.detail_item_long);
         detailCity = (TextView) findViewById(R.id.detail_item_city);
         detailCountryCode = (TextView) findViewById(R.id.detail_item_country_code);
-        detailIP_Port = (TextView) findViewById(R.id.detail_item_ip_port);
+        detail_IP = (TextView) findViewById(R.id.detail_item_ip);
+        detail_port = (TextView) findViewById(R.id.detail_item_port);
         detailTransport = (TextView) findViewById(R.id.detail_item_transport);
         detailProduct = (TextView) findViewById(R.id.detail_item_product);
         detailItemTimestamp = (TextView) findViewById(R.id.detail_itemTimestamp);
@@ -52,7 +54,8 @@ public class ShodanDetails extends AppCompatActivity {
         detailLong.setText("Longitude: " + shodanItem.longitude.toString());
         detailCity.setText(shodanItem.city);
         detailCountryCode.setText(shodanItem.countryCode);
-        detailIP_Port.setText("IP: " + shodanItem.ip + "\nPort: " + shodanItem.port);
+        detail_IP.setText("IP: " + shodanItem.ip);
+        detail_port.setText("Port: " + shodanItem.port);
         detailTransport.setText("Transport: " + shodanItem.transport);
         detailProduct.setText("Product: " + shodanItem.product);
         detailItemTimestamp.setText(shodanItem.timestamp);
