@@ -77,17 +77,20 @@ public class ShodanUtils {
                     e.printStackTrace();
                     shodanItem.timestamp = null;
                 }
-                shodanItem.organization = listItem.org;
-                shodanItem.ip = listItem.ip;
-                shodanItem.port = listItem.port;
-                shodanItem.product = listItem.product.toLowerCase();
-                shodanItem.transport = listItem.transport;
-                shodanItem.title = listItem.http.title.toUpperCase();
-                shodanItem.countryCode = listItem.location.country_code;
-                shodanItem.city = listItem.location.city;
-                shodanItem.longitude = listItem.location.longitude;
-                shodanItem.latitude = listItem.location.latitude;
-
+                try {
+                    shodanItem.organization = listItem.org;
+                    shodanItem.ip = listItem.ip;
+                    shodanItem.port = listItem.port;
+                    shodanItem.product = listItem.product.toLowerCase();
+                    shodanItem.transport = listItem.transport;
+                    shodanItem.title = listItem.http.title.toUpperCase();
+                    shodanItem.countryCode = listItem.location.country_code;
+                    shodanItem.city = listItem.location.city;
+                    shodanItem.longitude = listItem.location.longitude;
+                    shodanItem.latitude = listItem.location.latitude;
+                }catch(Exception e){
+                    Log.d("Error","some item was not parseable");
+                }
                 shodanItems.add(shodanItem);
             }
             return shodanItems;
