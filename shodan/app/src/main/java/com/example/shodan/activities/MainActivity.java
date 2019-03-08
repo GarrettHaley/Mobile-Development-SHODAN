@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>,ShodanAdapter.OnShodanItemClickListener,
         SharedPreferences.OnSharedPreferenceChangeListener{
-    private static final String SEARCH_URL_KEY = ShodanUtils.buildShodanURL("Seattle"); //baseline prior to user entering location preference
+    private static String SEARCH_URL_KEY = ShodanUtils.buildShodanURL("Seattle"); //baseline prior to user entering location preference
     private static final int SHODAN_SEARCH_LOADER_ID = 0;
     private ShodanAdapter mAdapter;
     private RecyclerView mRecyclerView;
@@ -35,13 +35,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_scrolling);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         mRecyclerView = (RecyclerView)findViewById(R.id.shodanItem_recycler_view);
         mAdapter = new ShodanAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setHasFixedSize(true);
-        getSupportLoaderManager().initLoader(SHODAN_SEARCH_LOADER_ID, null, this);
+
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        getSupportLoaderManager().initLoader(SHODAN_SEARCH_LOADER_ID, null, this);
         prefListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
                 loadShodanData(prefs);
