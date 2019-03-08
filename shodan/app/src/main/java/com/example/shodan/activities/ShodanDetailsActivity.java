@@ -2,8 +2,11 @@ package com.example.shodan.activities;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,11 +30,13 @@ public class ShodanDetailsActivity extends AppCompatActivity {
     private TextView detailProduct;
     private TextView detailItemTimestamp;
     private ShodanItem shodanItem;
+    private ShodanItem mshodanItem;
     private Button mapButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shodan_details);
+        mshodanItem = new ShodanItem();
         detailOrg = (TextView)findViewById(R.id.detail_item_org);
         detailTitle = (TextView)findViewById(R.id.detail_item_title);
         detailLat = (TextView) findViewById(R.id.detail_item_lat);
@@ -47,6 +52,7 @@ public class ShodanDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(ShodanUtils.EXTRA_SHODAN_ITEM)) {
             shodanItem = (ShodanItem)intent.getSerializableExtra(ShodanUtils.EXTRA_SHODAN_ITEM);
+            mshodanItem = shodanItem;
             fillInLayout(shodanItem);
             mapButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -76,6 +82,35 @@ public class ShodanDetailsActivity extends AppCompatActivity {
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, geoUri);
         if (mapIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(mapIntent);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.shodan_details_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_share:
+                shareDevice();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void shareDevice() {
+        if (mshodanItem != null) {
+            String shareText = getString(R.string.share_device_text, mshodanItem.organization, "device latitude: " + mshodanItem.latitude + "device longitude: " + mshodanItem.longitude);
+            ShareCompat.IntentBuilder.from(this)
+                    .setType("text/plain")
+                    .setText(shareText)
+                    .setChooserTitle(R.string.share_chooser_title)
+                    .startChooser();
         }
     }
 }

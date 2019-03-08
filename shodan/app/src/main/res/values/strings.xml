@@ -2,6 +2,10 @@
     <string name="app_name">SHODAN</string>
 
     <string name="action_preferences">Search</string>
+    <string name="action_share">Share</string>
+    <string name="share_device_text">%1$s: %2$s</string>
+    <string name="share_chooser_title">How do you want to share this device?</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
