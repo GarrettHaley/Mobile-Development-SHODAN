@@ -2,11 +2,20 @@
     <string name="app_name">SHODAN</string>
 
     <string name="action_preferences">Search</string>
-    <string name="action_share">Share</string>
-    <string name="share_device_text">%1$s: %2$s</string>
-    <string name="share_chooser_title">How do you want to share this device?</string>
+    <<<<<<< HEAD
+        <string name="action_share">Share</string>
+        <string name="share_device_text">%1$s: %2$s</string>
+        <string name="share_chooser_title">How do you want to share this device?</string>
+    >>>>>>> b7f0584b546262f70aa430628e26fdb7c41c4859
+    <string name="loading_error_message">An Error occured while loading results. Try again Later</string>
+    <string name="no_content_message">No results found</string>
+
+    <!-- Preference Strings -->
+    <string name="pref_search_key">pref_search</string>
+    <string name="pref_search_default">Seattle</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
