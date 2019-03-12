@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <EditTextPreference
-        android:key="pref_location"
+        android:key="@string/pref_search_key"
         android:title="Search Location by City Name"
-        android:defaultValue="Seattle"
+        android:defaultValue="@string/pref_search_default"
         android:textSize="40sp"/>
 </PreferenceScreen>

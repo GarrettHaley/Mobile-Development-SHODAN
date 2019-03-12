@@ -3,31 +3,27 @@ package com.example.shodan.activities;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.example.shodan.R;
 import com.example.shodan.ShodanItem;
-import com.example.shodan.utils.ShodanUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private static final String SHODAN_ITEMS_KEY = "shodanItems";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps2);
+        setContentView(R.layout.activity_gmaps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -51,8 +47,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Add a marker in Sydney and move the camera
 
         Intent intent = getIntent();
-        if (intent != null && intent.hasExtra("shodan_items")) {
-            ArrayList<ShodanItem> shodanItems = (ArrayList<ShodanItem>) intent.getSerializableExtra("shodan_items");
+        if (intent != null && intent.hasExtra(SHODAN_ITEMS_KEY)) {
+            ArrayList<ShodanItem> shodanItems = (ArrayList<ShodanItem>) intent.getSerializableExtra(SHODAN_ITEMS_KEY);
             ArrayList<LatLng> latlongs = new ArrayList();
             if (shodanItems != null) {
                 MarkerOptions markerOptions = new MarkerOptions();

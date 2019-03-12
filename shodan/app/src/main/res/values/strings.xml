@@ -2,6 +2,13 @@
     <string name="app_name">SHODAN</string>
 
     <string name="action_preferences">Search</string>
+    <string name="loading_error_message">An Error occured while loading results. Try again Later</string>
+    <string name="no_content_message">No results found</string>
+
+    <!-- Preference Strings -->
+    <string name="pref_search_key">pref_search</string>
+    <string name="pref_search_default">Seattle</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
