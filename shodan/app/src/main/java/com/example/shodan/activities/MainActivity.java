@@ -10,7 +10,6 @@ import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.app.LoaderManager;
@@ -94,8 +93,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(settingsIntent);
         }
         if (id == R.id.google_maps_button) {
-            Intent googleMapsIntent = new Intent(this, MapsActivity.class);
-            googleMapsIntent.putExtra(SHODAN_ITEMS_KEY,mShodanItems);
+            Intent googleMapsIntent = new Intent(this, GMapsActivity.class);
+            googleMapsIntent.putExtra(SHODAN_ITEMS_KEY, mShodanItems);
             startActivity(googleMapsIntent);
         }
         return super.onOptionsItemSelected(item);
