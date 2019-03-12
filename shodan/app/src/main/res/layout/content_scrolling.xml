@@ -9,9 +9,45 @@
     tools:context=".activities.MainActivity"
     tools:showIn="@layout/activity_scrolling">
 
-    <android.support.v7.widget.RecyclerView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/shodanItem_recycler_view"/>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/shodanItem_recycler_view"/>
+
+
+        <TextView
+            android:id="@+id/tv_loading_error_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:padding="16dp"
+            android:visibility="invisible"
+            android:textColor="#fff"
+            android:text="@string/loading_error_message" />
+
+        <TextView
+            android:id="@+id/tv_no_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:padding="16dp"
+            android:visibility="invisible"
+            android:textColor="#fff"
+            android:layout_gravity="top|center_horizontal"
+            android:text="@string/no_content_message" />
+
+        <ProgressBar
+            android:id="@+id/pb_loading_indicator"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_margin="32dp"
+            android:layout_gravity="top|center_horizontal"
+            android:visibility="invisible"/>
+    </FrameLayout>
+
 
 </android.support.v4.widget.NestedScrollView>
