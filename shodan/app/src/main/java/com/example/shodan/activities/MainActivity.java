@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private ShodanAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private SharedPreferences.OnSharedPreferenceChangeListener prefListener;
+    private ArrayList<ShodanItem> shodanItems;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +72,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             Intent settingsIntent = new Intent(this, SettingsActivity.class);
             startActivity(settingsIntent);
         }
+        if (id == R.id.google_maps_button) {
+            Intent googleMapsIntent = new Intent(this, MapsActivity.class);
+            googleMapsIntent.putExtra("shodan_items",shodanItems);
+            startActivity(googleMapsIntent);
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -87,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String shodanJSON) {
         if(shodanJSON != null){
-            ArrayList<ShodanItem> shodanItems = ShodanUtils.parseShodanJSON(shodanJSON);
+            shodanItems = ShodanUtils.parseShodanJSON(shodanJSON);
             mAdapter.updateShodanItems(shodanItems);
         }
     }
