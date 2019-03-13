@@ -57,7 +57,7 @@ public class GMapsActivity extends FragmentActivity implements OnMapReadyCallbac
                     if(shodanItem.longitude != null && shodanItem.latitude != null) {
                         LatLng latLng = new LatLng(shodanItem.latitude+offset, shodanItem.longitude+offset);
                         mMap.addMarker(markerOptions.position(latLng).title(shodanItem.organization + ":" + shodanItem.title));
-                        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,8.0f));
                         offset = offset + 0.000001;
                     }
                 }

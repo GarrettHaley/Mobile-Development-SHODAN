@@ -5,4 +5,9 @@
         android:title="Search Location by City Name"
         android:defaultValue="@string/pref_search_default"
         android:textSize="40sp"/>
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="pref_hacked"
+        android:title="Show Hacked Devices only"
+        android:textSize="40sp"/>
 </PreferenceScreen>

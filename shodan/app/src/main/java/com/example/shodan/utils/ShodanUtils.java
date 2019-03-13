@@ -48,8 +48,12 @@ public class ShodanUtils {
     }
 
 
-    public static String buildShodanURL(String shodanQuery) {
-        String query = "title:\"hacked by\" city:\"" + shodanQuery +"\"";
+    public static String buildShodanURL(String shodanQuery, Boolean hackedBy) {
+        String query;
+        if (hackedBy.equals(true))
+            query = "title:\"hacked by\" city:\"" + shodanQuery +"\"";
+        else
+            query = "city:\"" + shodanQuery +"\"";
         return Uri.parse(SHODAN_BASE_URL).buildUpon()
                 .appendQueryParameter("key", SHODAN_APPID)
                 .appendQueryParameter("query", query)

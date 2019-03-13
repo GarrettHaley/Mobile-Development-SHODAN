@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity
     private TextView mErrorMessage;
     private TextView mNoContentMessage;
     private ProgressBar mProgressBar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -160,7 +159,8 @@ public class MainActivity extends AppCompatActivity
 
         String url = ShodanUtils.buildShodanURL(pref.getString(
                         getString(R.string.pref_search_key),
-                        getString(R.string.pref_search_default)));
+                        getString(R.string.pref_search_default)),
+                        pref.getBoolean("pref_hacked",true));
 
         Bundle loaderArgs = new Bundle();
         loaderArgs.putString(SEARCH_URL_KEY, url);
