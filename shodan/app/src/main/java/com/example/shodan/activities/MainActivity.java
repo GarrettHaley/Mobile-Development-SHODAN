@@ -1,15 +1,20 @@
 package com.example.shodan.activities;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.app.LoaderManager;
@@ -21,15 +26,18 @@ import android.widget.TextView;
 import com.example.shodan.R;
 import com.example.shodan.ShodanItem;
 import com.example.shodan.asyncTasks.ShodanSearchLoader;
+import com.example.shodan.data.Location;
 import com.example.shodan.utils.ShodanAdapter;
 import com.example.shodan.utils.ShodanUtils;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity
     implements LoaderManager.LoaderCallbacks<String>,
         ShodanAdapter.OnShodanItemClickListener,
-        SharedPreferences.OnSharedPreferenceChangeListener{
+        SharedPreferences.OnSharedPreferenceChangeListener,
+        LocationAdapter.OnLocationItemClickListener {
 
     private static final int SHODAN_SEARCH_LOADER_ID = 0;
     private static final String SHODAN_ITEMS_KEY = "shodanItems";
@@ -42,6 +50,13 @@ public class MainActivity extends AppCompatActivity
     private TextView mErrorMessage;
     private TextView mNoContentMessage;
     private ProgressBar mProgressBar;
+    private DrawerLayout mDrawerLayout;
+    private RecyclerView mLocationItemsRV;
+
+    private LocationAdapter mLocationAdapter;
+    private LocationsViewModel mLocationsViewModel;
+    private Location mLocation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,22 +69,51 @@ public class MainActivity extends AppCompatActivity
         mProgressBar = findViewById(R.id.pb_loading_indicator);
         mRecyclerView = findViewById(R.id.shodanItem_recycler_view);
         mNoContentMessage = findViewById(R.id.tv_no_content);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
 
         mAdapter = new ShodanAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setHasFixedSize(true);
 
+        mLocationItemsRV = findViewById(R.id.rv_searched_locations);
+        mLocationAdapter = new LocationAdapter(this);
+        mLocationItemsRV.setAdapter(mLocationAdapter);
+        mLocationItemsRV.setLayoutManager(new LinearLayoutManager(this));
+        mLocationItemsRV.setHasFixedSize(true);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+
+        mLocation = new Location();
+        mLocationsViewModel = ViewModelProviders.of(this).get(LocationsViewModel.class);
+
+        mLocationsViewModel.getAllLocations().observe(this, new Observer<List<Location>>() {
+            @Override
+            public void onChanged(@Nullable List<Location> locations) {
+                mLocationAdapter.updateLocationItems(locations);
+            }
+        });
+
         if (savedInstanceState != null && savedInstanceState.containsKey(SHODAN_ITEMS_KEY)) {
             mShodanItems = (ArrayList<ShodanItem>) savedInstanceState.getSerializable(SHODAN_ITEMS_KEY);
         }
-
 
         getSupportLoaderManager().initLoader(SHODAN_SEARCH_LOADER_ID, null, this);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         preferences.registerOnSharedPreferenceChangeListener(this);
         loadShodanData(preferences);
+    }
+
+    @Override
+    public void onLocationItemClick(Location locationItem) {
+        mDrawerLayout.closeDrawers();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor sharedPrefEditor = sharedPreferences.edit();
+        sharedPrefEditor.putString("pref_search", locationItem.search_location);
+        sharedPrefEditor.apply();
     }
 
     @Override
@@ -87,6 +131,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        if(id == android.R.id.home) {
+            mDrawerLayout.openDrawer(Gravity.START);
+        }
         if (id == R.id.action_preferences) {
             Intent settingsIntent = new Intent(this, SettingsActivity.class);
             startActivity(settingsIntent);
@@ -170,6 +217,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+        mLocation.search_location = sharedPreferences.getString("pref_search", "");
+        mLocationsViewModel.insertLocation(mLocation);
         loadShodanData(sharedPreferences);
 
     }
