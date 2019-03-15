@@ -20,6 +20,7 @@ public class LocationsViewModel extends AndroidViewModel {
     public void insertLocation(Location location) {
         mLocationRepository.insertLocation(location);
     }
+    public void delete(Location location){mLocationRepository.deleteLocation(location);}
 
     public LiveData<List<Location>> getAllLocations() {
         return mLocationRepository.getAllLocations();

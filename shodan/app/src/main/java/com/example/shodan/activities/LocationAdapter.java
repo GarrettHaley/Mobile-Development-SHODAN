@@ -37,6 +37,9 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
             return 0;
         }
     }
+    public Location getLocationItemAt(int position){
+        return mLocationItems.get(position);
+    }
 
     @Override
     public LocationItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

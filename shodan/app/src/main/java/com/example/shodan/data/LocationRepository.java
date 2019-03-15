@@ -18,6 +18,10 @@ public class LocationRepository {
         new InsertAsyncTask(mLocationDao).execute(location);
     }
 
+    public void deleteLocation(Location location) {
+        new DeleteAsyncTask(mLocationDao).execute(location);
+    }
+
     public LiveData<List<Location>> getAllLocations() {
         return mLocationDao.getAllLocations();
     }
@@ -31,6 +35,19 @@ public class LocationRepository {
         @Override
         protected Void doInBackground(Location... locations) {
             mAsyncTaskDao.insert(locations[0]);
+            return null;
+        }
+    }
+
+    private static class DeleteAsyncTask extends AsyncTask<Location, Void, Void> {
+        private LocationDao mAsyncTaskDao;
+        DeleteAsyncTask(LocationDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Location... locations) {
+            mAsyncTaskDao.delete(locations[0]);
             return null;
         }
     }

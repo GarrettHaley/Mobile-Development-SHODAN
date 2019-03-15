@@ -14,6 +14,9 @@ public interface LocationDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert (Location searchLocation);
 
+    @Delete
+    void delete(Location  location);
+
     @Query("SELECT * FROM locations")
     LiveData<List<Location>> getAllLocations();
 
