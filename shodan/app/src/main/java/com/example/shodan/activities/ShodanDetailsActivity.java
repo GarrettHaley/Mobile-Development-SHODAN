@@ -67,15 +67,24 @@ public class ShodanDetailsActivity extends AppCompatActivity {
         DecimalFormat df = new DecimalFormat("#.00000");
         detailOrg.setText(shodanItem.organization);
         detailTitle.setText(shodanItem.title);
-        detailLat.setText("Latitude: " + df.format(shodanItem.latitude));
-        detailLong.setText("Longitude: " + df.format(shodanItem.longitude));
-        detailCity.setText(shodanItem.city);
-        detailCountryCode.setText(shodanItem.countryCode);
-        detail_IP.setText("IP: " + shodanItem.ip);
-        detail_port.setText("Port: " + shodanItem.port);
-        detailTransport.setText("Transport: " + shodanItem.transport);
-        detailProduct.setText("Product: " + shodanItem.product);
-        detailItemTimestamp.setText(shodanItem.timestamp);
+        try {
+            detailLat.setText("Latitude: " + df.format(shodanItem.latitude));
+            detailLong.setText("Longitude: " + df.format(shodanItem.longitude));
+            detailCity.setText(shodanItem.city);
+            detailCountryCode.setText(shodanItem.countryCode);
+            detail_IP.setText("IP: " + shodanItem.ip);
+            detail_port.setText("Port: " + shodanItem.port);
+            detailTransport.setText("Transport: " + shodanItem.transport);
+            detailProduct.setText("Product: " + shodanItem.product);
+            mapButton.setVisibility(View.VISIBLE);
+        }catch(Exception e){
+            detailTitle.setText("Additional Information Cannot be Retrieved for this Item");
+            detailCity.setText(shodanItem.city);
+            detailCountryCode.setText(shodanItem.countryCode);
+            detail_IP.setText("IP: " + shodanItem.ip);
+            detail_port.setText("Port: " + shodanItem.port);
+            mapButton.setVisibility(View.INVISIBLE);
+        }
     }
     public void showShodanLocation(ShodanItem shodanItem) {
         Uri geoUri = Uri.parse("geo:" + shodanItem.latitude + "," + shodanItem.longitude).buildUpon().build();
